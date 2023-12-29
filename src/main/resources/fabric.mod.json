@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "battlepass",
+  "version": "${version}",
+  "name": "BattlePass",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/theep/BattlePass"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/battlepass/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.selfdot.battlepass.client.BattlePassClient"
+    ],
+    "main": [
+      "com.selfdot.battlepass.BattlePass"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
