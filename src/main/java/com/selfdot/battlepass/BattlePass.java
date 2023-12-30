@@ -7,6 +7,7 @@ import net.minecraft.server.MinecraftServer;
 public class BattlePass extends DisableableMod {
 
     private final XPTracker xpTracker = new XPTracker(this);
+    private final RewardGroupsConfig rewardGroupsConfig = new RewardGroupsConfig(this);
 
     @Override
     public void onInitialize() {
@@ -16,6 +17,7 @@ public class BattlePass extends DisableableMod {
 
     private void onServerStarting(MinecraftServer server) {
         xpTracker.load();
+        rewardGroupsConfig.load();
     }
 
     private void onServerStopping(MinecraftServer server) {

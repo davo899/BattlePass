@@ -10,21 +10,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public abstract class Tracker {
+public abstract class ReadOnlyJsonFile {
 
     protected abstract String filename();
-    protected abstract JsonElement toJson();
+    protected abstract void setDefaults();
     protected abstract void loadFromJson(JsonElement jsonElement);
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    
+    protected static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
     private final DisableableMod mod;
-    
-    public Tracker(DisableableMod mod) {
+
+    public ReadOnlyJsonFile(DisableableMod mod) {
         this.mod = mod;
     }
 
     public void load() {
+        setDefaults();
         try {
             JsonElement jsonElement = JsonParser.parseReader(new FileReader(filename()));
             try {
@@ -49,18 +50,6 @@ public abstract class Tracker {
                 mod.disable();
                 LogUtils.getLogger().error("Unable to generate " + filename());
             }
-        }
-    }
-
-    public void save() {
-        try {
-            Files.createDirectories(Paths.get(filename()).getParent());
-            FileWriter writer = new FileWriter(filename());
-            GSON.toJson(toJson(), writer);
-            writer.close();
-
-        } catch (IOException e) {
-            LogUtils.getLogger().error("Unable to store to " + filename());
         }
     }
 
