@@ -16,7 +16,7 @@
       "com.selfdot.battlepass.client.BattlePassClient"
     ],
     "main": [
-      "com.selfdot.battlepass.BattlePass"
+      "com.selfdot.battlepass.BattlePassMod"
     ]
   },
   "depends": {
