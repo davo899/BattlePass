@@ -1,13 +1,15 @@
 package com.selfdot.battlepass;
 
+import com.selfdot.battlepass.tier.TiersConfig;
 import com.selfdot.battlepass.util.DisableableMod;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.server.MinecraftServer;
 
 public class BattlePass extends DisableableMod {
 
-    private final XPTracker xpTracker = new XPTracker(this);
-    private final RewardGroupsConfig rewardGroupsConfig = new RewardGroupsConfig(this);
+    private final PointsTracker pointsTracker = new PointsTracker(this);
+    private final RewardsConfig rewardsConfig = new RewardsConfig(this);
+    private final TiersConfig tiersConfig = new TiersConfig(this);
 
     @Override
     public void onInitialize() {
@@ -16,12 +18,13 @@ public class BattlePass extends DisableableMod {
     }
 
     private void onServerStarting(MinecraftServer server) {
-        xpTracker.load();
-        rewardGroupsConfig.load();
+        pointsTracker.load();
+        rewardsConfig.load();
+        tiersConfig.load();
     }
 
     private void onServerStopping(MinecraftServer server) {
-        if (!isDisabled()) xpTracker.save();
+        if (!isDisabled()) pointsTracker.save();
     }
 
 }
