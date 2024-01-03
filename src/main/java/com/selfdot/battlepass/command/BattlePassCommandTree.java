@@ -11,6 +11,7 @@ public class BattlePassCommandTree {
         dispatcher.register(LiteralArgumentBuilder.<ServerCommandSource>
             literal("bp")
             .requires(source -> !mod.isDisabled())
+            .requires(ServerCommandSource::isExecutedByPlayer)
             .executes(new OpenBattlePassCommand())
         );
     }

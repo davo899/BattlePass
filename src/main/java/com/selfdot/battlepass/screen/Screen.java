@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 
@@ -50,5 +51,7 @@ public abstract class Screen {
     };
 
     public abstract String getDisplayName();
+
+    public abstract ScreenHandlerType<?> type();
 
 }

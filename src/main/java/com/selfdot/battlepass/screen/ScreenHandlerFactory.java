@@ -11,13 +11,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class ScreenHandlerFactory implements NamedScreenHandlerFactory {
 
-    private static final int ROWS = 6;
-    private static final int COLUMNS = 9;
+    private final int rows;
+    private final int cols;
 
     private final Screen screen;
 
     public ScreenHandlerFactory(Screen screen) {
         this.screen = screen;
+        if (screen.type().equals(ScreenHandlerType.GENERIC_9X3)) {
+            this.rows = 3;
+        } else {
+            this.rows = 6;
+        }
+        this.cols = 9;
     }
 
     @Override
@@ -26,19 +32,19 @@ public class ScreenHandlerFactory implements NamedScreenHandlerFactory {
     }
 
     public int rows() {
-        return ROWS;
+        return rows;
     }
 
     public int size() {
-        return rows() * COLUMNS;
+        return rows() * cols;
     }
 
     @Nullable
     @Override
     public net.minecraft.screen.ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
         SimpleInventory inventory = new SimpleInventory(size());
-        screen.initialize(inventory, ROWS, COLUMNS);
-        return new ScreenHandler(ScreenHandlerType.GENERIC_9X6, syncId, inv, inventory, rows()) {
+        screen.initialize(inventory, rows, cols);
+        return new ScreenHandler(screen.type(), syncId, inv, inventory, rows) {
 
             @Override
             public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {

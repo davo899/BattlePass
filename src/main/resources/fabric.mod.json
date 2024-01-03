@@ -12,9 +12,6 @@
   "icon": "assets/battlepass/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "com.selfdot.battlepass.client.BattlePassClient"
-    ],
     "main": [
       "com.selfdot.battlepass.BattlePassMod"
     ]
