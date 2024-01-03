@@ -1,6 +1,7 @@
 package com.selfdot.battlepass.tier;
 
 import com.google.gson.JsonElement;
+import com.selfdot.battlepass.DataKeys;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.ReadOnlyJsonFile;
 
@@ -17,7 +18,7 @@ public class TiersConfig extends ReadOnlyJsonFile {
 
     @Override
     protected String filename() {
-        return "config/battlePass/tiers.json";
+        return "config/" + DataKeys.BATTLE_PASS_NAMESPACE + "/tiers.json";
     }
 
     @Override

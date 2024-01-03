@@ -19,7 +19,7 @@ public class PointsTracker extends JsonFile {
 
     @Override
     protected String filename() {
-        return "battlePass/xp.json";
+        return DataKeys.BATTLE_PASS_NAMESPACE + "/xp.json";
     }
 
     @Override

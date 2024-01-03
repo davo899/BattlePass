@@ -19,7 +19,7 @@ public class RewardsConfig extends ReadOnlyJsonFile {
 
     @Override
     protected String filename() {
-        return "config/battlePass/rewards.json";
+        return "config/" + DataKeys.BATTLE_PASS_NAMESPACE + "/rewards.json";
     }
 
     @Override

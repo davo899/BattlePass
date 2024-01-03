@@ -2,6 +2,7 @@ package com.selfdot.battlepass;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.selfdot.battlepass.command.BattlePassCommandTree;
+import com.selfdot.battlepass.quest.QuestEventListener;
 import com.selfdot.battlepass.tier.TiersConfig;
 import com.selfdot.battlepass.util.DisableableMod;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -16,12 +17,14 @@ public class BattlePassMod extends DisableableMod {
     private final PointsTracker pointsTracker = new PointsTracker(this);
     private final RewardsConfig rewardsConfig = new RewardsConfig(this);
     private final TiersConfig tiersConfig = new TiersConfig(this);
+    private final QuestEventListener questEventListener = new QuestEventListener();
 
     @Override
     public void onInitialize() {
         ServerLifecycleEvents.SERVER_STARTING.register(this::onServerStarting);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStopping);
         CommandRegistrationCallback.EVENT.register(this::registerCommands);
+        questEventListener.register();
     }
 
     private void registerCommands(
