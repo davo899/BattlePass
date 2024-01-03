@@ -1,13 +1,36 @@
 package com.selfdot.battlepass.screen;
 
+import com.selfdot.battlepass.util.ScreenUtils;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 public class BattlePassScreen extends Screen {
 
+    private int rewardsButtonSlotIndex;
+    private int questsButtonSlotIndex;
+    private final ServerPlayerEntity player;
+
+    public BattlePassScreen(ServerPlayerEntity player) {
+        this.player = player;
+    }
+
     @Override
     public void initialize(Inventory inventory) {
+        rewardsButtonSlotIndex = slotIndex(2, 1);
+        questsButtonSlotIndex = slotIndex(6, 1);
+        setSlot(inventory, rewardsButtonSlotIndex, Items.CHEST_MINECART, "Rewards");
+        setSlot(inventory, questsButtonSlotIndex, Items.WRITABLE_BOOK, "Quests");
 
+        ItemStack playerInfo = new ItemStack(Items.PLAYER_HEAD);
+        playerInfo.setCustomName(Text.literal(player.getGameProfile().getName()));
+        ScreenUtils.addLore(playerInfo, new Text[]{
+            Text.literal(player.getGameProfile().getName())
+        });
+        inventory.setStack(slotIndex(4, 1), playerInfo);
     }
 
     @Override

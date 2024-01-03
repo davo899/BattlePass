@@ -3,6 +3,7 @@ package com.selfdot.battlepass.screen;
 import com.selfdot.battlepass.util.ScreenUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandlerType;
@@ -53,5 +54,15 @@ public abstract class Screen {
     public abstract String getDisplayName();
 
     public abstract ScreenHandlerType<?> type();
+
+    protected int slotIndex(int x, int y) {
+        return x + (y * columns);
+    }
+
+    protected void setSlot(Inventory inventory, int index, Item item, String name) {
+        ItemStack itemStack = new ItemStack(item);
+        itemStack.setCustomName(Text.literal(name));
+        inventory.setStack(index, itemStack);
+    }
 
 }

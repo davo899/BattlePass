@@ -13,7 +13,7 @@ public class OpenBattlePassCommand implements Command<ServerCommandSource> {
     public int run(CommandContext<ServerCommandSource> context) {
         ServerPlayerEntity player = context.getSource().getPlayer();
         if (player == null) return 0;
-        player.openHandledScreen(new ScreenHandlerFactory(new BattlePassScreen()));
+        player.openHandledScreen(new ScreenHandlerFactory(new BattlePassScreen(player)));
         return SINGLE_SUCCESS;
     }
 
