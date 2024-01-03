@@ -2,11 +2,13 @@ package com.selfdot.battlepass;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.selfdot.battlepass.command.BattlePassCommandTree;
-import com.selfdot.battlepass.quest.QuestEventListener;
+import com.selfdot.battlepass.quest.DailyQuestTracker;
+import com.selfdot.battlepass.quest.listener.BlockBreakQuestListener;
 import com.selfdot.battlepass.tier.TiersConfig;
 import com.selfdot.battlepass.util.DisableableMod;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
@@ -17,14 +19,17 @@ public class BattlePassMod extends DisableableMod {
     private final PointsTracker pointsTracker = new PointsTracker(this);
     private final RewardsConfig rewardsConfig = new RewardsConfig(this);
     private final TiersConfig tiersConfig = new TiersConfig(this);
-    private final QuestEventListener questEventListener = new QuestEventListener();
+    private final DailyQuestTracker dailyQuestTracker = new DailyQuestTracker(this);
 
     @Override
     public void onInitialize() {
         ServerLifecycleEvents.SERVER_STARTING.register(this::onServerStarting);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStopping);
         CommandRegistrationCallback.EVENT.register(this::registerCommands);
-        questEventListener.register();
+
+        BlockBreakQuestListener.getInstance().register();
+
+        ServerTickEvents.START_SERVER_TICK.register(this::onTick);
     }
 
     private void registerCommands(
@@ -39,10 +44,16 @@ public class BattlePassMod extends DisableableMod {
         pointsTracker.load();
         rewardsConfig.load();
         tiersConfig.load();
+        dailyQuestTracker.load();
     }
 
     private void onServerStopping(MinecraftServer server) {
-        if (!isDisabled()) pointsTracker.save();
+        pointsTracker.save();
+        dailyQuestTracker.save();
+    }
+
+    private void onTick(MinecraftServer server) {
+        dailyQuestTracker.onTick();
     }
 
 }

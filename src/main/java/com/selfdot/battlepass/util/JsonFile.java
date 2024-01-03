@@ -1,7 +1,6 @@
 package com.selfdot.battlepass.util;
 
 import com.google.gson.*;
-import com.mojang.logging.LogUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,14 +16,17 @@ public abstract class JsonFile extends ReadOnlyJsonFile {
     }
 
     public void save() {
-        try {
-            Files.createDirectories(Paths.get(filename()).getParent());
-            FileWriter writer = new FileWriter(filename());
-            GSON.toJson(toJson(), writer);
-            writer.close();
+        if (!mod.isDisabled()) {
+            try {
+                Files.createDirectories(Paths.get(filename()).getParent());
+                FileWriter writer = new FileWriter(filename());
+                GSON.toJson(toJson(), writer);
+                writer.close();
+                mod.getLogger().info("Saved " + filename());
 
-        } catch (IOException e) {
-            mod.getLogger().error("Unable to store to " + filename());
+            } catch (IOException e) {
+                mod.getLogger().error("Unable to store to " + filename());
+            }
         }
     }
 
