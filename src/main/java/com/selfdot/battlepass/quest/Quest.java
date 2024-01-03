@@ -8,6 +8,19 @@ import net.minecraft.entity.player.PlayerEntity;
 public abstract class Quest {
 
     private ActiveQuest active;
+    private final int points;
+
+    public Quest(int points) {
+        this.points = points;
+    }
+
+    public Quest(JsonObject jsonObject) {
+        this.points = jsonObject.get(DataKeys.QUEST_POINTS).getAsInt();
+    }
+
+    public int getPoints() {
+        return points;
+    }
 
     public void setActive(ActiveQuest active) {
         this.active = active;

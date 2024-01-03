@@ -17,9 +17,13 @@ public class PointsTracker extends JsonFile {
         super(mod);
     }
 
+    public void addPoints(int points, UUID playerID) {
+        pointsMap.put(playerID, pointsMap.containsKey(playerID) ? pointsMap.get(playerID) + points : points);
+    }
+
     @Override
     protected String filename() {
-        return DataKeys.BATTLE_PASS_NAMESPACE + "/xp.json";
+        return DataKeys.BATTLE_PASS_NAMESPACE + "/points.json";
     }
 
     @Override

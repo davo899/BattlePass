@@ -3,6 +3,7 @@ package com.selfdot.battlepass.quest;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.DataKeys;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
@@ -55,7 +56,8 @@ public class ActiveQuest {
         int next = progress.get(playerID) + 1;
         if (next >= required) {
             completed.add(playerID);
-            player.sendMessage(Text.literal("Completed quest!"));
+            BattlePassMod.getInstance().getPointsTracker().addPoints(quest.getPoints(), playerID);
+            player.sendMessage(Text.literal("Quest complete! +" + quest.getPoints() + " points"));
             progress.remove(playerID);
         } else {
             progress.put(playerID, next);

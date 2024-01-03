@@ -12,11 +12,13 @@ public class BlockBreakQuest extends Quest {
 
     private final Identifier blockID;
 
-    public BlockBreakQuest(Block block) {
+    public BlockBreakQuest(int points, Block block) {
+        super(points);
         this.blockID = Registries.BLOCK.getId(block);
     }
 
     public BlockBreakQuest(JsonObject jsonObject) {
+        super(jsonObject);
         this.blockID = Identifier.tryParse(jsonObject.get(DataKeys.BREAK_BLOCK_BLOCK).getAsString());
     }
 

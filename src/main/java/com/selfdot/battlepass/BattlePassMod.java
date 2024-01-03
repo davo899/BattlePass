@@ -16,6 +16,8 @@ import net.minecraft.server.command.ServerCommandSource;
 
 public class BattlePassMod extends DisableableMod {
 
+    private static BattlePassMod INSTANCE;
+
     private final PointsTracker pointsTracker = new PointsTracker(this);
     private final RewardsConfig rewardsConfig = new RewardsConfig(this);
     private final TiersConfig tiersConfig = new TiersConfig(this);
@@ -23,6 +25,8 @@ public class BattlePassMod extends DisableableMod {
 
     @Override
     public void onInitialize() {
+        INSTANCE = this;
+
         ServerLifecycleEvents.SERVER_STARTING.register(this::onServerStarting);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStopping);
         CommandRegistrationCallback.EVENT.register(this::registerCommands);
@@ -30,6 +34,14 @@ public class BattlePassMod extends DisableableMod {
         BlockBreakQuestListener.getInstance().register();
 
         ServerTickEvents.START_SERVER_TICK.register(this::onTick);
+    }
+
+    public static BattlePassMod getInstance() {
+        return INSTANCE;
+    }
+
+    public PointsTracker getPointsTracker() {
+        return pointsTracker;
     }
 
     private void registerCommands(

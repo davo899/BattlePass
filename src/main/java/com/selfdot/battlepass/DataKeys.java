@@ -11,6 +11,7 @@ public class DataKeys {
     public static final String QUEST_TRACKER_QUESTS = "quests";
 
     public static final String QUEST = "quest";
+    public static final String QUEST_POINTS = "points";
     public static final String QUEST_TYPE = "type";
     public static final String QUEST_REQUIRED = "required";
     public static final String QUEST_PROGRESS = "progress";
