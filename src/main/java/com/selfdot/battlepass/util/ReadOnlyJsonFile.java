@@ -18,7 +18,7 @@ public abstract class ReadOnlyJsonFile {
 
     protected static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    private final DisableableMod mod;
+    protected final DisableableMod mod;
 
     public ReadOnlyJsonFile(DisableableMod mod) {
         this.mod = mod;
@@ -30,16 +30,16 @@ public abstract class ReadOnlyJsonFile {
             JsonElement jsonElement = JsonParser.parseReader(new FileReader(filename()));
             try {
                 loadFromJson(jsonElement);
-                LogUtils.getLogger().info(filename() + " loaded");
+                mod.getLogger().info(filename() + " loaded");
 
             } catch (Exception e) {
                 mod.disable();
-                LogUtils.getLogger().error("An exception occurred when loading " + filename() + ":");
-                LogUtils.getLogger().error(e.getMessage());
+                mod.getLogger().error("An exception occurred when loading " + filename() + ":");
+                mod.getLogger().error(e.getMessage());
             }
 
         } catch (FileNotFoundException e) {
-            LogUtils.getLogger().warn(filename() + " not found, attempting to generate");
+            mod.getLogger().warn(filename() + " not found, attempting to generate");
             try {
                 Files.createDirectories(Paths.get(filename()).getParent());
                 FileWriter writer = new FileWriter(filename());
@@ -48,7 +48,7 @@ public abstract class ReadOnlyJsonFile {
 
             } catch (IOException ex) {
                 mod.disable();
-                LogUtils.getLogger().error("Unable to generate " + filename());
+                mod.getLogger().error("Unable to generate " + filename());
             }
         }
     }

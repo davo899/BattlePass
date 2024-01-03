@@ -24,7 +24,7 @@ public abstract class JsonFile extends ReadOnlyJsonFile {
             writer.close();
 
         } catch (IOException e) {
-            LogUtils.getLogger().error("Unable to store to " + filename());
+            mod.getLogger().error("Unable to store to " + filename());
         }
     }
 
