@@ -48,6 +48,10 @@ public class BattlePassMod extends DisableableMod {
         return tiersConfig;
     }
 
+    public DailyQuestTracker getDailyQuestTracker() {
+        return dailyQuestTracker;
+    }
+
     private void registerCommands(
         CommandDispatcher<ServerCommandSource> dispatcher,
         CommandRegistryAccess commandRegistryAccess,

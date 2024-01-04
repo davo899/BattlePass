@@ -5,8 +5,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.DataKeys;
+import com.selfdot.battlepass.util.ScreenUtils;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.*;
 
@@ -62,6 +65,24 @@ public class ActiveQuest {
         } else {
             progress.put(playerID, next);
         }
+    }
+
+    public ItemStack getProgressItem(UUID playerID) {
+        ItemStack itemStack = quest.getIconItem();
+
+        Text progressText;
+        if (completed.contains(playerID)) {
+            progressText = Text.literal(Formatting.GREEN + "Completed!");
+        } else {
+            int playerProgress = progress.getOrDefault(playerID, 0);
+            progressText = Text.literal(Formatting.BLUE + String.valueOf(playerProgress) + "/" + required);
+        }
+
+        ScreenUtils.addLore(itemStack, new Text[]{
+            progressText,
+            Text.literal(Formatting.GREEN + String.valueOf(quest.getPoints()) + " points")
+        });
+        return itemStack;
     }
 
 }

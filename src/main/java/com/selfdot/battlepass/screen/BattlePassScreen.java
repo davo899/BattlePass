@@ -3,12 +3,13 @@ package com.selfdot.battlepass.screen;
 import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.tier.TierProgress;
 import com.selfdot.battlepass.util.ScreenUtils;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -16,9 +17,9 @@ public class BattlePassScreen extends Screen {
 
     private int rewardsButtonSlotIndex;
     private int questsButtonSlotIndex;
-    private final ServerPlayerEntity player;
+    private final PlayerEntity player;
 
-    public BattlePassScreen(ServerPlayerEntity player) {
+    public BattlePassScreen(PlayerEntity player) {
         this.player = player;
     }
 
@@ -59,4 +60,12 @@ public class BattlePassScreen extends Screen {
         return ScreenHandlerType.GENERIC_9X3;
     }
 
+    @Override
+    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+        super.onSlotClick(slotIndex, button, actionType, player);
+
+        if (slotIndex == questsButtonSlotIndex) {
+            player.openHandledScreen(new ScreenHandlerFactory(new QuestScreen(player)));
+        }
+    }
 }

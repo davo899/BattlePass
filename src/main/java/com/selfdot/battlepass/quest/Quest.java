@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.DataKeys;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 
 public abstract class Quest {
 
@@ -47,5 +48,7 @@ public abstract class Quest {
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }
+
+    public abstract ItemStack getIconItem();
 
 }

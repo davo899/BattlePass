@@ -22,7 +22,7 @@ public class PointsTracker extends JsonFile {
     }
 
     public long getPoints(UUID playerID) {
-        return pointsMap.containsKey(playerID) ? pointsMap.get(playerID) : 0;
+        return pointsMap.getOrDefault(playerID, 0L);
     }
 
     @Override

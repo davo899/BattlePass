@@ -7,11 +7,9 @@ import com.selfdot.battlepass.DataKeys;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.JsonFile;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class DailyQuestTracker extends JsonFile {
 
@@ -40,6 +38,10 @@ public class DailyQuestTracker extends JsonFile {
             expiry = date.getTimeInMillis();
             reroll(10);
         }
+    }
+
+    public List<ItemStack> getProgressItems(UUID playerID) {
+        return activeQuests.stream().map(activeQuest -> activeQuest.getProgressItem(playerID)).toList();
     }
 
     @Override

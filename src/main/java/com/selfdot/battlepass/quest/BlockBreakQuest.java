@@ -5,7 +5,9 @@ import com.selfdot.battlepass.DataKeys;
 import com.selfdot.battlepass.quest.listener.BlockBreakQuestListener;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class BlockBreakQuest extends Quest {
@@ -37,6 +39,13 @@ public class BlockBreakQuest extends Quest {
         jsonObject.addProperty(DataKeys.QUEST_TYPE, DataKeys.QUEST_TYPE_BREAK_BLOCK);
         jsonObject.addProperty(DataKeys.BREAK_BLOCK_BLOCK, blockID.toString());
         return jsonObject;
+    }
+
+    @Override
+    public ItemStack getIconItem() {
+        ItemStack itemStack = new ItemStack(Registries.ITEM.get(blockID));
+        itemStack.setCustomName(Text.literal("Break " + Registries.BLOCK.get(blockID).getName().getString()));
+        return itemStack;
     }
 
 }
