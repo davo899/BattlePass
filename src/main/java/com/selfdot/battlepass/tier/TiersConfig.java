@@ -5,8 +5,8 @@ import com.selfdot.battlepass.DataKeys;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.ReadOnlyJsonFile;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TiersConfig extends ReadOnlyJsonFile {
 
@@ -14,6 +14,26 @@ public class TiersConfig extends ReadOnlyJsonFile {
 
     public TiersConfig(DisableableMod mod) {
         super(mod);
+    }
+
+    private List<Map.Entry<Integer, Tier>> getTiersInOrder() {
+        return tierMap.entrySet().stream()
+            .sorted(Comparator.comparingInt(Map.Entry::getKey))
+            .collect(Collectors.toList());
+    }
+
+    public TierProgress getTierProgress(long points) {
+        long currentPoints = points;
+        int tier = 0;
+        for (Map.Entry<Integer, Tier> entry : getTiersInOrder()) {
+            int pointsForNext = entry.getValue().getPoints();
+            if (currentPoints < pointsForNext) {
+                return new TierProgress(tier, currentPoints, pointsForNext);
+            }
+            currentPoints -= pointsForNext;
+            tier = entry.getKey();
+        }
+        return new TierProgress(tier, points, 0);
     }
 
     @Override

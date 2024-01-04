@@ -1,6 +1,7 @@
 package com.selfdot.battlepass.screen;
 
 import com.selfdot.battlepass.BattlePassMod;
+import com.selfdot.battlepass.tier.TierProgress;
 import com.selfdot.battlepass.util.ScreenUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -34,9 +35,16 @@ public class BattlePassScreen extends Screen {
         playerInfoNbt.putString("SkullOwner", player.getGameProfile().getName());
         playerInfo.setNbt(playerInfoNbt);
         playerInfo.setCustomName(Text.literal(player.getGameProfile().getName()));
-        long points = BattlePassMod.getInstance().getPointsTracker().getPoints(player.getUuid());
+        TierProgress tierProgress = BattlePassMod.getInstance().getTiersConfig().getTierProgress(
+            BattlePassMod.getInstance().getPointsTracker().getPoints(player.getUuid())
+        );
         ScreenUtils.addLore(playerInfo, new Text[]{
-            Text.literal(Formatting.AQUA + String.valueOf(points) + " points")
+            Text.literal(Formatting.GOLD + "Tier " + tierProgress.tier()),
+            Text.literal(
+                Formatting.AQUA + String.valueOf(tierProgress.pointsInCurrent()) +
+                (tierProgress.pointsForNext() == 0 ? "" : "/" + tierProgress.pointsForNext()) +
+                " points"
+            )
         });
         inventory.setStack(slotIndex(4, 1), playerInfo);
     }

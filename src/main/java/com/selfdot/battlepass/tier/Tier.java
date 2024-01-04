@@ -19,4 +19,8 @@ public class Tier {
         this.rewards = rewardsJson.asList().stream().map(JsonElement::getAsString).toList();
     }
 
+    public int getPoints() {
+        return points;
+    }
+
 }

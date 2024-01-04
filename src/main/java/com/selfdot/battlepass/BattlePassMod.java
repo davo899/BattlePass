@@ -44,6 +44,10 @@ public class BattlePassMod extends DisableableMod {
         return pointsTracker;
     }
 
+    public TiersConfig getTiersConfig() {
+        return tiersConfig;
+    }
+
     private void registerCommands(
         CommandDispatcher<ServerCommandSource> dispatcher,
         CommandRegistryAccess commandRegistryAccess,
