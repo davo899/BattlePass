@@ -33,7 +33,11 @@ public abstract class Quest {
         active.increment(player);
     }
 
-    public abstract JsonObject toJson();
+    public JsonObject toJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty(DataKeys.QUEST_POINTS, points);
+        return jsonObject;
+    }
 
     public static Quest fromJson(JsonElement jsonElement) {
         JsonObject jsonObject = jsonElement.getAsJsonObject();

@@ -33,7 +33,7 @@ public class BlockBreakQuest extends Quest {
 
     @Override
     public JsonObject toJson() {
-        JsonObject jsonObject = new JsonObject();
+        JsonObject jsonObject = super.toJson();
         jsonObject.addProperty(DataKeys.QUEST_TYPE, DataKeys.QUEST_TYPE_BREAK_BLOCK);
         jsonObject.addProperty(DataKeys.BREAK_BLOCK_BLOCK, blockID.toString());
         return jsonObject;

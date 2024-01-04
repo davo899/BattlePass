@@ -1,5 +1,6 @@
 package com.selfdot.battlepass.quest.listener;
 
+import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.quest.BlockBreakQuest;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.BlockState;
@@ -29,7 +30,9 @@ public class BlockBreakQuestListener extends QuestEventListener<BlockBreakQuest>
         BlockState blockState,
         @Nullable BlockEntity blockEntity
     ) {
-        listeners.forEach(blockBreakQuest -> blockBreakQuest.test(blockState.getBlock(), player));
+        if (!BattlePassMod.getInstance().isDisabled()) {
+            listeners.forEach(blockBreakQuest -> blockBreakQuest.test(blockState.getBlock(), player));
+        }
     }
 
 }

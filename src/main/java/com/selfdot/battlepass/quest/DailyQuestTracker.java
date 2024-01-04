@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.DataKeys;
-import com.selfdot.battlepass.PointsTracker;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.JsonFile;
 import net.minecraft.block.Blocks;
@@ -26,7 +25,7 @@ public class DailyQuestTracker extends JsonFile {
     private void reroll(int amount) {
         activeQuests.clear();
         for (int i = 0; i < amount; i++) {
-            activeQuests.add(new ActiveQuest(new BlockBreakQuest(100, Blocks.GRASS_BLOCK), 5));
+            activeQuests.add(new ActiveQuest(new BlockBreakQuest(100, Blocks.GRASS_BLOCK), i + 1));
         }
     }
 

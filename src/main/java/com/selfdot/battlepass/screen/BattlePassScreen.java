@@ -1,12 +1,15 @@
 package com.selfdot.battlepass.screen;
 
+import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.util.ScreenUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 public class BattlePassScreen extends Screen {
 
@@ -26,9 +29,14 @@ public class BattlePassScreen extends Screen {
         setSlot(inventory, questsButtonSlotIndex, Items.WRITABLE_BOOK, "Quests");
 
         ItemStack playerInfo = new ItemStack(Items.PLAYER_HEAD);
+        NbtCompound playerInfoNbt = playerInfo.getNbt();
+        if (playerInfoNbt == null) playerInfoNbt = new NbtCompound();
+        playerInfoNbt.putString("SkullOwner", player.getGameProfile().getName());
+        playerInfo.setNbt(playerInfoNbt);
         playerInfo.setCustomName(Text.literal(player.getGameProfile().getName()));
+        long points = BattlePassMod.getInstance().getPointsTracker().getPoints(player.getUuid());
         ScreenUtils.addLore(playerInfo, new Text[]{
-            Text.literal(player.getGameProfile().getName())
+            Text.literal(Formatting.AQUA + String.valueOf(points) + " points")
         });
         inventory.setStack(slotIndex(4, 1), playerInfo);
     }

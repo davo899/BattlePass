@@ -65,7 +65,9 @@ public class BattlePassMod extends DisableableMod {
     }
 
     private void onTick(MinecraftServer server) {
-        dailyQuestTracker.onTick();
+        if (!isDisabled()) {
+            dailyQuestTracker.onTick();
+        }
     }
 
 }

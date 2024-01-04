@@ -18,7 +18,11 @@ public class PointsTracker extends JsonFile {
     }
 
     public void addPoints(int points, UUID playerID) {
-        pointsMap.put(playerID, pointsMap.containsKey(playerID) ? pointsMap.get(playerID) + points : points);
+        pointsMap.put(playerID, getPoints(playerID) + points);
+    }
+
+    public long getPoints(UUID playerID) {
+        return pointsMap.containsKey(playerID) ? pointsMap.get(playerID) : 0;
     }
 
     @Override
