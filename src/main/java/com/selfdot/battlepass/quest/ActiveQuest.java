@@ -75,7 +75,7 @@ public class ActiveQuest {
             progressText = Text.literal(Formatting.GREEN + "Completed!");
         } else {
             int playerProgress = progress.getOrDefault(playerID, 0);
-            progressText = Text.literal(Formatting.BLUE + String.valueOf(playerProgress) + "/" + required);
+            progressText = Text.literal(Formatting.WHITE + String.valueOf(playerProgress) + "/" + required);
         }
 
         ScreenUtils.addLore(itemStack, new Text[]{
