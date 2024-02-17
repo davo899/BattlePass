@@ -4,6 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.selfdot.battlepass.command.BattlePassCommandTree;
 import com.selfdot.battlepass.quest.DailyQuestTracker;
 import com.selfdot.battlepass.quest.listener.BlockBreakQuestListener;
+import com.selfdot.battlepass.reward.ClaimedRewardsTracker;
+import com.selfdot.battlepass.reward.RewardsConfig;
 import com.selfdot.battlepass.tier.TiersConfig;
 import com.selfdot.battlepass.util.DisableableMod;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -22,6 +24,7 @@ public class BattlePassMod extends DisableableMod {
     private final RewardsConfig rewardsConfig = new RewardsConfig(this);
     private final TiersConfig tiersConfig = new TiersConfig(this);
     private final DailyQuestTracker dailyQuestTracker = new DailyQuestTracker(this);
+    private final ClaimedRewardsTracker claimedRewardsTracker = new ClaimedRewardsTracker(this);
 
     @Override
     public void onInitialize() {
@@ -52,6 +55,10 @@ public class BattlePassMod extends DisableableMod {
         return dailyQuestTracker;
     }
 
+    public ClaimedRewardsTracker getClaimedRewardsTracker() {
+        return claimedRewardsTracker;
+    }
+
     public RewardsConfig getRewardsConfig() {
         return rewardsConfig;
     }
@@ -69,11 +76,13 @@ public class BattlePassMod extends DisableableMod {
         rewardsConfig.load();
         tiersConfig.load();
         dailyQuestTracker.load();
+        claimedRewardsTracker.load();
     }
 
     private void onServerStopping(MinecraftServer server) {
         pointsTracker.save();
         dailyQuestTracker.save();
+        claimedRewardsTracker.save();
     }
 
     private void onTick(MinecraftServer server) {

@@ -57,4 +57,8 @@ public abstract class Screen {
         inventory.setStack(index, itemStack);
     }
 
+    protected void refresh(PlayerEntity player) {
+        player.openHandledScreen(new ScreenHandlerFactory(this));
+    }
+
 }

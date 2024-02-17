@@ -23,4 +23,8 @@ public class Tier {
         return points;
     }
 
+    public List<String> getRewards() {
+        return rewards;
+    }
+
 }

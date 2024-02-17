@@ -3,6 +3,7 @@ package com.selfdot.battlepass.screen;
 import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.tier.Tier;
 import com.selfdot.battlepass.tier.TierProgress;
+import com.selfdot.battlepass.util.CommandUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -55,9 +56,13 @@ public class TierScreen extends Screen {
                 setSlot(inventory, slotIndex(i, 2), Items.LIME_STAINED_GLASS_PANE,
                     Formatting.GOLD + "Tier " + tier.getKey()
                 );
-                setSlot(inventory, slotIndex(i, 3), Items.CHEST_MINECART,
-                    Formatting.GREEN + "Click to claim!"
-                );
+                if (BattlePassMod.getInstance().getClaimedRewardsTracker().hasClaimed(player, tier.getKey())) {
+                    setSlot(inventory, slotIndex(i, 3), Items.MINECART, Formatting.GRAY + "Claimed");
+                } else {
+                    setSlot(inventory, slotIndex(i, 3), Items.CHEST_MINECART,
+                        Formatting.GREEN + "Click to claim!"
+                    );
+                }
             } else {
                 setSlot(inventory, slotIndex(i, 2), Items.RED_STAINED_GLASS_PANE,
                     Formatting.GOLD + "Tier " + tier.getKey()
@@ -73,17 +78,37 @@ public class TierScreen extends Screen {
 
         if (slotIndex == prevPageSlot && pageNumber > 0) {
             pageNumber--;
-            player.openHandledScreen(new ScreenHandlerFactory(this));
+            refresh(player);
             return;
         }
         if (slotIndex == nextPageSlot && maxPerPage * (pageNumber + 1) < tierList.size()) {
             pageNumber++;
-            player.openHandledScreen(new ScreenHandlerFactory(this));
+            refresh(player);
             return;
         }
 
         int x = slotIndex % columns;
         int y = slotIndex / columns;
+        if (y == 3) {
+            int tierIndex = x + (maxPerPage * pageNumber);
+            if (tierIndex < tierList.size()) {
+                Map.Entry<Integer, Tier> tierEntry = tierList.get(tierIndex);
+                BattlePassMod mod = BattlePassMod.getInstance();
+                if (
+                    mod.getTiersConfig().getTierProgress(
+                        mod.getPointsTracker().getPoints(player.getUuid())
+                    ).tier() < tierEntry.getKey() ||
+                    mod.getClaimedRewardsTracker().hasClaimed(player, tierEntry.getKey())
+                ) return;
+                tierEntry.getValue().getRewards().forEach(
+                    rewardID -> mod.getRewardsConfig().getReward(rewardID).forEach(
+                        rewardCommand -> CommandUtils.executeCommandAsServer(rewardCommand, player.getServer(), player)
+                    )
+                );
+                mod.getClaimedRewardsTracker().setClaimed(player, tierEntry.getKey());
+                refresh(player);
+            }
+        }
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.selfdot.battlepass.util;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
+import com.selfdot.battlepass.DataKeys;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,6 +20,10 @@ public class CommandUtils {
             LogUtils.getLogger().error("Could not run: " + command);
             LogUtils.getLogger().error(e.getMessage());
         }
+    }
+
+    public static void executeCommandAsServer(String command, MinecraftServer server, PlayerEntity player) {
+        executeCommandAsServer(command.replaceAll(DataKeys.PLAYER_TOKEN, player.getGameProfile().getName()), server);
     }
 
     public static boolean hasPermission(ServerCommandSource source, String permission) {

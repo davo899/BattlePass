@@ -1,6 +1,7 @@
-package com.selfdot.battlepass;
+package com.selfdot.battlepass.reward;
 
 import com.google.gson.JsonElement;
+import com.selfdot.battlepass.DataKeys;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.ReadOnlyJsonFile;
 

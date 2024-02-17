@@ -22,4 +22,6 @@ public class DataKeys {
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 
+    public static final String PLAYER_TOKEN = "%player%";
+
 }
