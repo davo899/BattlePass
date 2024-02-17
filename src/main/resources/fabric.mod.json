@@ -8,7 +8,7 @@
   "contact": {
     "repo": "https://github.com/theep/BattlePass"
   },
-  "license": "All-Rights-Reserved",
+  "license": "GPL3",
   "environment": "*",
   "entrypoints": {
     "main": [

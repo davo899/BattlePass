@@ -6,37 +6,49 @@ import com.selfdot.battlepass.DataKeys;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class Quest {
 
-    private ActiveQuest active;
+    private final Set<ActiveQuest> activeQuests = new HashSet<>();
     private final int points;
+    private final int required;
 
-    public Quest(int points) {
+    public Quest(int points, int required) {
         this.points = points;
+        this.required = required;
     }
 
     public Quest(JsonObject jsonObject) {
         this.points = jsonObject.get(DataKeys.QUEST_POINTS).getAsInt();
+        this.required = jsonObject.get(DataKeys.QUEST_REQUIRED).getAsInt();
     }
 
     public int getPoints() {
         return points;
     }
 
-    public void setActive(ActiveQuest active) {
-        this.active = active;
-        startListening();
+    public int getRequired() {
+        return required;
     }
 
-    protected abstract void startListening();
+    public void addActiveQuest(ActiveQuest activeQuest) {
+        activeQuests.add(activeQuest);
+    }
 
-    protected void incrementActive(PlayerEntity player) {
-        active.increment(player);
+    public void removeActiveQuest(ActiveQuest activeQuest) {
+        activeQuests.remove(activeQuest);
+    }
+
+    protected void incrementActiveQuests(PlayerEntity player) {
+        activeQuests.forEach(activeQuest -> activeQuest.increment(player));
     }
 
     public JsonObject toJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(DataKeys.QUEST_POINTS, points);
+        jsonObject.addProperty(DataKeys.QUEST_REQUIRED, required);
         return jsonObject;
     }
 

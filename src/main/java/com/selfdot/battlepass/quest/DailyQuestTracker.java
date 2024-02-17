@@ -3,15 +3,17 @@ package com.selfdot.battlepass.quest;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.DataKeys;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.JsonFile;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 
 import java.util.*;
 
 public class DailyQuestTracker extends JsonFile {
+
+    private static final int DAILY_QUEST_COUNT = 10;
 
     private long expiry;
     private final List<ActiveQuest> activeQuests = new ArrayList<>();
@@ -20,10 +22,11 @@ public class DailyQuestTracker extends JsonFile {
         super(mod);
     }
 
-    private void reroll(int amount) {
+    private void reroll() {
+        activeQuests.forEach(ActiveQuest::remove);
         activeQuests.clear();
-        for (int i = 0; i < amount; i++) {
-            activeQuests.add(new ActiveQuest(new BlockBreakQuest(100, Blocks.GRASS_BLOCK), i + 1));
+        for (int i = 0; i < DAILY_QUEST_COUNT; i++) {
+            activeQuests.add(new ActiveQuest(BattlePassMod.getInstance().getQuestPoolConfig().getRandomQuest()));
         }
     }
 
@@ -36,7 +39,7 @@ public class DailyQuestTracker extends JsonFile {
             date.set(Calendar.MILLISECOND, 0);
             date.add(Calendar.DAY_OF_MONTH, 1);
             expiry = date.getTimeInMillis();
-            reroll(10);
+            reroll();
         }
     }
 

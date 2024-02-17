@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 
 public abstract class DisableableMod implements ModInitializer {
 
-    private boolean disabled = false;
+    private volatile boolean disabled = false;
     private final Logger LOGGER = LogUtils.getLogger();
 
     public boolean isDisabled() {

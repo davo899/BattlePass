@@ -2,9 +2,7 @@ package com.selfdot.battlepass.quest;
 
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.DataKeys;
-import com.selfdot.battlepass.quest.listener.BlockBreakQuestListener;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
@@ -14,23 +12,13 @@ public class BlockBreakQuest extends Quest {
 
     private final Identifier blockID;
 
-    public BlockBreakQuest(int points, Block block) {
-        super(points);
-        this.blockID = Registries.BLOCK.getId(block);
-    }
-
     public BlockBreakQuest(JsonObject jsonObject) {
         super(jsonObject);
         this.blockID = Identifier.tryParse(jsonObject.get(DataKeys.BREAK_BLOCK_BLOCK).getAsString());
-    }
 
-    public void test(Block broken, PlayerEntity player) {
-        if (Registries.BLOCK.getId(broken).equals(blockID)) incrementActive(player);
-    }
-
-    @Override
-    protected void startListening() {
-        BlockBreakQuestListener.getInstance().add(this);
+        PlayerBlockBreakEvents.AFTER.register(((world, player, pos, state, blockEntity) -> {
+            if (Registries.BLOCK.getId(state.getBlock()).equals(blockID)) incrementActiveQuests(player);
+        }));
     }
 
     @Override

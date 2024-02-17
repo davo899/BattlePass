@@ -2,10 +2,7 @@ package com.selfdot.battlepass.util;
 
 import com.google.gson.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -41,9 +38,7 @@ public abstract class ReadOnlyJsonFile {
             mod.getLogger().warn(filename() + " not found, attempting to generate");
             try {
                 Files.createDirectories(Paths.get(filename()).getParent());
-                FileWriter writer = new FileWriter(filename());
-                GSON.toJson(new JsonObject(), writer);
-                writer.close();
+                new File(filename()).createNewFile();
 
             } catch (IOException ex) {
                 mod.disable();

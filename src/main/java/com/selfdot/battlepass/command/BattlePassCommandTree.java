@@ -10,8 +10,7 @@ public class BattlePassCommandTree {
     public void register(DisableableMod mod, CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(LiteralArgumentBuilder.<ServerCommandSource>
             literal("bp")
-            .requires(source -> !mod.isDisabled())
-            .requires(ServerCommandSource::isExecutedByPlayer)
+            .requires(source -> !mod.isDisabled() && source.isExecutedByPlayer())
             .executes(new OpenBattlePassCommand())
         );
     }

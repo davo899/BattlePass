@@ -16,21 +16,18 @@ import java.util.*;
 public class ActiveQuest {
 
     private final Quest quest;
-    private final int required;
     private final Map<UUID, Integer> progress = new HashMap<>();
     private final Set<UUID> completed = new HashSet<>();
 
-    public ActiveQuest(Quest quest, int required) {
+    public ActiveQuest(Quest quest) {
         this.quest = quest;
-        this.quest.setActive(this);
-        this.required = required;
+        this.quest.addActiveQuest(this);
     }
 
     public ActiveQuest(JsonElement jsonElement) {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         this.quest = Quest.fromJson(jsonObject.getAsJsonObject(DataKeys.QUEST));
-        this.quest.setActive(this);
-        this.required = jsonObject.get(DataKeys.QUEST_REQUIRED).getAsInt();
+        this.quest.addActiveQuest(this);
         jsonObject.getAsJsonObject(DataKeys.QUEST_PROGRESS).entrySet().forEach(
             entry -> progress.put(UUID.fromString(entry.getKey()), entry.getValue().getAsInt())
         );
@@ -42,7 +39,6 @@ public class ActiveQuest {
     public JsonObject toJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add(DataKeys.QUEST, quest.toJson());
-        jsonObject.addProperty(DataKeys.QUEST_REQUIRED, required);
         JsonObject progressJson = new JsonObject();
         progress.forEach((key, value) -> progressJson.addProperty(key.toString(), value));
         jsonObject.add(DataKeys.QUEST_PROGRESS, progressJson);
@@ -57,7 +53,7 @@ public class ActiveQuest {
         if (completed.contains(playerID)) return;
         if (!progress.containsKey(playerID)) progress.put(playerID, 0);
         int next = progress.get(playerID) + 1;
-        if (next >= required) {
+        if (next >= quest.getRequired()) {
             completed.add(playerID);
             BattlePassMod.getInstance().getPointsTracker().addPoints(quest.getPoints(), playerID);
             player.sendMessage(Text.literal("Quest complete! +" + quest.getPoints() + " points"));
@@ -75,7 +71,7 @@ public class ActiveQuest {
             progressText = Text.literal(Formatting.GREEN + "Completed!");
         } else {
             int playerProgress = progress.getOrDefault(playerID, 0);
-            progressText = Text.literal(Formatting.WHITE + String.valueOf(playerProgress) + "/" + required);
+            progressText = Text.literal(Formatting.WHITE + String.valueOf(playerProgress) + "/" + quest.getRequired());
         }
 
         ScreenUtils.addLore(itemStack, new Text[]{
@@ -83,6 +79,10 @@ public class ActiveQuest {
             Text.literal(Formatting.GREEN + String.valueOf(quest.getPoints()) + " points")
         });
         return itemStack;
+    }
+
+    public void remove() {
+        quest.removeActiveQuest(this);
     }
 
 }

@@ -3,7 +3,7 @@ package com.selfdot.battlepass;
 import com.mojang.brigadier.CommandDispatcher;
 import com.selfdot.battlepass.command.BattlePassCommandTree;
 import com.selfdot.battlepass.quest.DailyQuestTracker;
-import com.selfdot.battlepass.quest.listener.BlockBreakQuestListener;
+import com.selfdot.battlepass.quest.QuestPoolConfig;
 import com.selfdot.battlepass.reward.ClaimedRewardsTracker;
 import com.selfdot.battlepass.reward.RewardsConfig;
 import com.selfdot.battlepass.tier.TiersConfig;
@@ -20,9 +20,11 @@ public class BattlePassMod extends DisableableMod {
 
     private static BattlePassMod INSTANCE;
 
-    private final PointsTracker pointsTracker = new PointsTracker(this);
     private final RewardsConfig rewardsConfig = new RewardsConfig(this);
     private final TiersConfig tiersConfig = new TiersConfig(this);
+    private final QuestPoolConfig questPoolConfig = new QuestPoolConfig(this);
+
+    private final PointsTracker pointsTracker = new PointsTracker(this);
     private final DailyQuestTracker dailyQuestTracker = new DailyQuestTracker(this);
     private final ClaimedRewardsTracker claimedRewardsTracker = new ClaimedRewardsTracker(this);
 
@@ -33,8 +35,6 @@ public class BattlePassMod extends DisableableMod {
         ServerLifecycleEvents.SERVER_STARTING.register(this::onServerStarting);
         ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStopping);
         CommandRegistrationCallback.EVENT.register(this::registerCommands);
-
-        BlockBreakQuestListener.getInstance().register();
 
         ServerTickEvents.START_SERVER_TICK.register(this::onTick);
     }
@@ -63,6 +63,10 @@ public class BattlePassMod extends DisableableMod {
         return rewardsConfig;
     }
 
+    public QuestPoolConfig getQuestPoolConfig() {
+        return questPoolConfig;
+    }
+
     private void registerCommands(
         CommandDispatcher<ServerCommandSource> dispatcher,
         CommandRegistryAccess commandRegistryAccess,
@@ -72,9 +76,11 @@ public class BattlePassMod extends DisableableMod {
     }
 
     private void onServerStarting(MinecraftServer server) {
-        pointsTracker.load();
         rewardsConfig.load();
         tiersConfig.load();
+        questPoolConfig.load();
+
+        pointsTracker.load();
         dailyQuestTracker.load();
         claimedRewardsTracker.load();
     }
