@@ -62,7 +62,7 @@ public class TierScreen extends Screen {
                 setSlot(inventory, slotIndex(i, 2), Items.RED_STAINED_GLASS_PANE,
                     Formatting.GOLD + "Tier " + tier.getKey()
                 );
-                setSlot(inventory, slotIndex(i, 3), Items.MINECART, Formatting.RED + "Locked");
+                setSlot(inventory, slotIndex(i, 3), Items.FURNACE_MINECART, Formatting.RED + "Locked");
             }
         }
     }
