@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.ReadOnlyJsonFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,10 @@ public class RewardsConfig extends ReadOnlyJsonFile {
 
     public RewardsConfig(DisableableMod mod) {
         super(mod);
+    }
+
+    public List<String> getReward(String key) {
+        return rewards.getOrDefault(key, new ArrayList<>());
     }
 
     @Override

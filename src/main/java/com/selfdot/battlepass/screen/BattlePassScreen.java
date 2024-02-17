@@ -67,5 +67,8 @@ public class BattlePassScreen extends Screen {
         if (slotIndex == questsButtonSlotIndex) {
             player.openHandledScreen(new ScreenHandlerFactory(new QuestScreen(player)));
         }
+        if (slotIndex == rewardsButtonSlotIndex) {
+            player.openHandledScreen(new ScreenHandlerFactory(new TierScreen(player, 0)));
+        }
     }
 }

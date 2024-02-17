@@ -1,7 +1,6 @@
 package com.selfdot.battlepass.util;
 
 import com.google.gson.*;
-import com.mojang.logging.LogUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

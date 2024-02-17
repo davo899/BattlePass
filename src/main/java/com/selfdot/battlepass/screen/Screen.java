@@ -25,17 +25,9 @@ public abstract class Screen {
     public void initialize(Inventory inventory, int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        ScreenUtils.fill(inventory, Items.GRAY_STAINED_GLASS_PANE);
-        for (int i = 0; i < columns; i++) {
-            inventory.setStack(i, new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
-            inventory.setStack(((rows - 1) * columns) + i, new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
-        }
-        for (int i = 1; i < rows - 1; i++) {
-            inventory.setStack(columns * i, new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
-            inventory.setStack((columns * i) + (columns - 1), new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
-        }
+        ScreenUtils.fill(inventory, Items.BLACK_STAINED_GLASS_PANE);
         if (returnsTo != null) {
-            backButtonSlot = ((rows - 2) * columns) + (columns / 2);
+            backButtonSlot = ((rows - 1) * columns) + (columns / 2);
             ItemStack itemStack = new ItemStack(Items.BARRIER);
             itemStack.setCustomName(Text.literal("Back"));
             inventory.setStack(backButtonSlot, itemStack);

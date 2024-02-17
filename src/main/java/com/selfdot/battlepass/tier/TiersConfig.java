@@ -16,7 +16,7 @@ public class TiersConfig extends ReadOnlyJsonFile {
         super(mod);
     }
 
-    private List<Map.Entry<Integer, Tier>> getTiersInOrder() {
+    public List<Map.Entry<Integer, Tier>> getTiersInOrder() {
         return tierMap.entrySet().stream()
             .sorted(Comparator.comparingInt(Map.Entry::getKey))
             .collect(Collectors.toList());

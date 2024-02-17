@@ -52,6 +52,10 @@ public class BattlePassMod extends DisableableMod {
         return dailyQuestTracker;
     }
 
+    public RewardsConfig getRewardsConfig() {
+        return rewardsConfig;
+    }
+
     private void registerCommands(
         CommandDispatcher<ServerCommandSource> dispatcher,
         CommandRegistryAccess commandRegistryAccess,
