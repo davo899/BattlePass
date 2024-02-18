@@ -15,11 +15,6 @@ public abstract class Quest {
     private final int points;
     private final int required;
 
-    public Quest(int points, int required) {
-        this.points = points;
-        this.required = required;
-    }
-
     public Quest(JsonObject jsonObject) {
         this.points = jsonObject.get(DataKeys.QUEST_POINTS).getAsInt();
         this.required = jsonObject.get(DataKeys.QUEST_REQUIRED).getAsInt();
@@ -57,6 +52,10 @@ public abstract class Quest {
         String questType = jsonObject.get(DataKeys.QUEST_TYPE).getAsString();
         return switch (questType) {
             case DataKeys.QUEST_TYPE_BREAK_BLOCK -> new BlockBreakQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_CATCH_ANY_POKEMON -> new CatchAnyPokemonQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_CATCH_SPECIES -> new CatchSpeciesQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_CATCH_TYPE -> new CatchTypeQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_CATCH_REGION -> new CatchRegionQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }

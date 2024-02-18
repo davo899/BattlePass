@@ -74,7 +74,7 @@ public class ActiveQuest {
             progressText = Text.literal(Formatting.WHITE + String.valueOf(playerProgress) + "/" + quest.getRequired());
         }
 
-        ScreenUtils.addLore(itemStack, new Text[]{
+        ScreenUtils.setLore(itemStack, new Text[]{
             progressText,
             Text.literal(Formatting.GREEN + String.valueOf(quest.getPoints()) + " points")
         });

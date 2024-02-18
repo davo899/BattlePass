@@ -39,7 +39,7 @@ public class BattlePassScreen extends Screen {
         TierProgress tierProgress = BattlePassMod.getInstance().getTiersConfig().getTierProgress(
             BattlePassMod.getInstance().getPointsTracker().getPoints(player.getUuid())
         );
-        ScreenUtils.addLore(playerInfo, new Text[]{
+        ScreenUtils.setLore(playerInfo, new Text[]{
             Text.literal(Formatting.GOLD + "Tier " + tierProgress.tier()),
             Text.literal(
                 Formatting.AQUA + String.valueOf(tierProgress.pointsInCurrent()) +

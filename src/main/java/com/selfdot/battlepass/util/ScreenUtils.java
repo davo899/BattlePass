@@ -16,7 +16,7 @@ public class ScreenUtils {
         for (int i = 0; i < inventory.size(); i++) inventory.setStack(i, new ItemStack(item));
     }
 
-    public static void addLore(ItemStack stack, Text[] lore) {
+    public static void setLore(ItemStack stack, Text[] lore) {
         NbtCompound nbt = stack.getOrCreateNbt();
         NbtCompound displayNbt = stack.getOrCreateSubNbt("display");
         NbtList nbtLore = new NbtList();

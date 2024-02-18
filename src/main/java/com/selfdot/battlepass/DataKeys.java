@@ -19,8 +19,16 @@ public class DataKeys {
     public static final String QUEST_COMPLETED = "completed";
 
     public static final String QUEST_TYPE_BREAK_BLOCK = "breakBlock";
+    public static final String QUEST_TYPE_CATCH_ANY_POKEMON = "catchAnyPokemon";
+    public static final String QUEST_TYPE_CATCH_SPECIES = "catchSpecies";
+    public static final String QUEST_TYPE_CATCH_TYPE = "catchType";
+    public static final String QUEST_TYPE_CATCH_REGION = "catchRegion";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
+
+    public static final String CATCH_POKEMON_TYPE = "pokemonType";
+    public static final String CATCH_POKEMON_SPECIES = "species";
+    public static final String CATCH_POKEMON_REGION = "region";
 
     public static final String PLAYER_TOKEN = "%player%";
 
