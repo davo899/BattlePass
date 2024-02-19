@@ -22,6 +22,7 @@ public abstract class ReadOnlyJsonFile {
 
     public void load() {
         setDefaults();
+        if (mod.isDisabled()) return;
         try {
             JsonElement jsonElement = JsonParser.parseReader(new FileReader(filename()));
             try {
