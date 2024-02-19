@@ -23,6 +23,7 @@ public class DataKeys {
     public static final String QUEST_TYPE_CATCH_SPECIES = "catchSpecies";
     public static final String QUEST_TYPE_CATCH_TYPE = "catchType";
     public static final String QUEST_TYPE_CATCH_REGION = "catchRegion";
+    public static final String QUEST_TYPE_LEVEL_UP_POKEMON = "levelUpPokemon";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 

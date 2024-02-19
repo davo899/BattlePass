@@ -28,6 +28,7 @@ public class DailyQuestTracker extends JsonFile {
         for (int i = 0; i < DAILY_QUEST_COUNT; i++) {
             activeQuests.add(new ActiveQuest(BattlePassMod.getInstance().getQuestPoolConfig().getRandomQuest()));
         }
+        save();
     }
 
     public void onTick() {

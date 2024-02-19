@@ -13,9 +13,12 @@ public class BlockBreakQuest extends Quest {
     private final Identifier blockID;
 
     public BlockBreakQuest(JsonObject jsonObject) {
-        super(jsonObject);
+        super(jsonObject, DataKeys.QUEST_TYPE_BREAK_BLOCK);
         this.blockID = Identifier.tryParse(jsonObject.get(DataKeys.BREAK_BLOCK_BLOCK).getAsString());
+    }
 
+    @Override
+    public void registerListener() {
         PlayerBlockBreakEvents.AFTER.register(((world, player, pos, state, blockEntity) -> {
             if (Registries.BLOCK.getId(state.getBlock()).equals(blockID)) incrementActiveQuests(player);
         }));
@@ -24,7 +27,6 @@ public class BlockBreakQuest extends Quest {
     @Override
     public JsonObject toJson() {
         JsonObject jsonObject = super.toJson();
-        jsonObject.addProperty(DataKeys.QUEST_TYPE, DataKeys.QUEST_TYPE_BREAK_BLOCK);
         jsonObject.addProperty(DataKeys.BREAK_BLOCK_BLOCK, blockID.toString());
         return jsonObject;
     }

@@ -12,13 +12,18 @@ import java.util.Set;
 public abstract class Quest {
 
     private final Set<ActiveQuest> activeQuests = new HashSet<>();
+    private final String questType;
     private final int points;
     private final int required;
 
-    public Quest(JsonObject jsonObject) {
+    public Quest(JsonObject jsonObject, String questType) {
+        this.questType = questType;
         this.points = jsonObject.get(DataKeys.QUEST_POINTS).getAsInt();
         this.required = jsonObject.get(DataKeys.QUEST_REQUIRED).getAsInt();
+        registerListener();
     }
+
+    public abstract void registerListener();
 
     public int getPoints() {
         return points;
@@ -42,6 +47,7 @@ public abstract class Quest {
 
     public JsonObject toJson() {
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty(DataKeys.QUEST_TYPE, questType);
         jsonObject.addProperty(DataKeys.QUEST_POINTS, points);
         jsonObject.addProperty(DataKeys.QUEST_REQUIRED, required);
         return jsonObject;
@@ -56,6 +62,7 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_CATCH_SPECIES -> new CatchSpeciesQuest(jsonObject);
             case DataKeys.QUEST_TYPE_CATCH_TYPE -> new CatchTypeQuest(jsonObject);
             case DataKeys.QUEST_TYPE_CATCH_REGION -> new CatchRegionQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_LEVEL_UP_POKEMON -> new LevelUpPokemonQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }
