@@ -63,6 +63,7 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_CATCH_TYPE -> new CatchTypeQuest(jsonObject);
             case DataKeys.QUEST_TYPE_CATCH_REGION -> new CatchRegionQuest(jsonObject);
             case DataKeys.QUEST_TYPE_LEVEL_UP_POKEMON -> new LevelUpPokemonQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_EVOLVE_POKEMON -> new EvolvePokemonQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }
