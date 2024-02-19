@@ -75,7 +75,7 @@ public class BattlePassMod extends DisableableMod {
         new BattlePassCommandTree().register(this, dispatcher);
     }
 
-    private void onServerStarting(MinecraftServer server) {
+    public void loadData() {
         rewardsConfig.load();
         tiersConfig.load();
         questPoolConfig.load();
@@ -83,6 +83,10 @@ public class BattlePassMod extends DisableableMod {
         pointsTracker.load();
         dailyQuestTracker.load();
         claimedRewardsTracker.load();
+    }
+
+    private void onServerStarting(MinecraftServer server) {
+        loadData();
     }
 
     private void onServerStopping(MinecraftServer server) {
