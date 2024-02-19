@@ -17,6 +17,10 @@ public class BattlePassCommandTree {
                 CommandUtils.hasPermission(source, "selfdot.bp")
             )
             .executes(new OpenBattlePassCommand())
+            .then(LiteralArgumentBuilder.<ServerCommandSource>
+                literal("rewards")
+                .executes(new OpenRewardsCommand())
+            )
         );
 
         dispatcher.register(LiteralArgumentBuilder.<ServerCommandSource>
