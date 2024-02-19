@@ -21,6 +21,10 @@ public class BattlePassCommandTree {
                 literal("rewards")
                 .executes(new OpenRewardsCommand())
             )
+            .then(LiteralArgumentBuilder.<ServerCommandSource>
+                literal("quests")
+                .executes(new OpenQuestsCommand())
+            )
         );
 
         dispatcher.register(LiteralArgumentBuilder.<ServerCommandSource>
