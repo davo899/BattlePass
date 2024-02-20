@@ -69,6 +69,8 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_WIN_PLAYER_BATTLE -> new WinPlayerBattleQuest(jsonObject);
             case DataKeys.QUEST_TYPE_WIN_NPC_BATTLE -> new WinNPCBattleQuest(jsonObject);
             case DataKeys.QUEST_TYPE_FISH -> new FishingQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_HARVEST_ANY_BERRIES -> new HarvestAnyBerriesQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_HARVEST_SPECIFIC_BERRIES -> new HarvestSpecificBerriesQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }

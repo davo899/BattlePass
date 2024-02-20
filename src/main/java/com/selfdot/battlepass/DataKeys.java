@@ -4,7 +4,6 @@ public class DataKeys {
 
     public static final String BATTLE_PASS_NAMESPACE = "battlepass";
 
-    public static final String TIER_NUMBER = "number";
     public static final String TIER_POINTS = "points";
     public static final String TIER_REWARDS = "rewards";
 
@@ -29,12 +28,16 @@ public class DataKeys {
     public static final String QUEST_TYPE_WIN_PLAYER_BATTLE = "winPlayerBattle";
     public static final String QUEST_TYPE_WIN_NPC_BATTLE = "winNPCBattle";
     public static final String QUEST_TYPE_FISH = "fish";
+    public static final String QUEST_TYPE_HARVEST_ANY_BERRIES = "harvestAnyBerries";
+    public static final String QUEST_TYPE_HARVEST_SPECIFIC_BERRIES = "harvestSpecificBerries";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 
     public static final String CATCH_POKEMON_TYPE = "pokemonType";
     public static final String CATCH_POKEMON_SPECIES = "species";
     public static final String CATCH_POKEMON_REGION = "region";
+
+    public static final String HARVEST_BERRY_BERRY = "berry";
 
     public static final String PLAYER_TOKEN = "%player%";
 
