@@ -42,8 +42,12 @@ public abstract class Quest {
         activeQuests.remove(activeQuest);
     }
 
+    protected void incrementActiveQuests(PlayerEntity player, int amount) {
+        activeQuests.forEach(activeQuest -> activeQuest.increment(player, amount));
+    }
+
     protected void incrementActiveQuests(PlayerEntity player) {
-        activeQuests.forEach(activeQuest -> activeQuest.increment(player));
+        incrementActiveQuests(player, 1);
     }
 
     public JsonObject toJson() {
@@ -71,6 +75,7 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_FISH -> new FishingQuest(jsonObject);
             case DataKeys.QUEST_TYPE_HARVEST_ANY_BERRIES -> new HarvestAnyBerriesQuest(jsonObject);
             case DataKeys.QUEST_TYPE_HARVEST_SPECIFIC_BERRIES -> new HarvestSpecificBerriesQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_SMELT_ITEMS -> new SmeltItemsQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }

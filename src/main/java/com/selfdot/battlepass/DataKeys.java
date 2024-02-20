@@ -30,6 +30,7 @@ public class DataKeys {
     public static final String QUEST_TYPE_FISH = "fish";
     public static final String QUEST_TYPE_HARVEST_ANY_BERRIES = "harvestAnyBerries";
     public static final String QUEST_TYPE_HARVEST_SPECIFIC_BERRIES = "harvestSpecificBerries";
+    public static final String QUEST_TYPE_SMELT_ITEMS = "smeltItems";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 

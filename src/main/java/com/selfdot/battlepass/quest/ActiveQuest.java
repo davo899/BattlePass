@@ -49,12 +49,12 @@ public class ActiveQuest {
         return jsonObject;
     }
 
-    public void increment(PlayerEntity player) {
+    public void increment(PlayerEntity player, int amount) {
         if (player == null) return;
         UUID playerID = player.getUuid();
         if (completed.contains(playerID)) return;
         if (!progress.containsKey(playerID)) progress.put(playerID, 0);
-        int next = progress.get(playerID) + 1;
+        int next = progress.get(playerID) + amount;
         if (next >= quest.getRequired()) {
             completed.add(playerID);
             BattlePassMod.getInstance().getPointsTracker().addPoints(quest.getPoints(), playerID);
