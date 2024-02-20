@@ -1,7 +1,5 @@
 package com.selfdot.battlepass;
 
-import com.cobblemon.mod.common.api.Priority;
-import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.mojang.brigadier.CommandDispatcher;
 import com.selfdot.battlepass.command.BattlePassCommandTree;
 import com.selfdot.battlepass.quest.DailyQuestTracker;
@@ -104,9 +102,7 @@ public class BattlePassMod extends DisableableMod {
     }
 
     private void onTick(MinecraftServer server) {
-        if (!isDisabled()) {
-            dailyQuestTracker.onTick();
-        }
+        if (!isDisabled()) dailyQuestTracker.onTick();
     }
 
 }

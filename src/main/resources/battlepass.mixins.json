@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.selfdot.battlepass.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FishMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

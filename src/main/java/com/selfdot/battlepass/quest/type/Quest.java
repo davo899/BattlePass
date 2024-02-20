@@ -68,6 +68,7 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_WIN_WILD_BATTLE -> new WinWildBattleQuest(jsonObject);
             case DataKeys.QUEST_TYPE_WIN_PLAYER_BATTLE -> new WinPlayerBattleQuest(jsonObject);
             case DataKeys.QUEST_TYPE_WIN_NPC_BATTLE -> new WinNPCBattleQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_FISH -> new FishingQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }

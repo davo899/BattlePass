@@ -28,6 +28,7 @@ public class DataKeys {
     public static final String QUEST_TYPE_WIN_WILD_BATTLE = "winWildBattle";
     public static final String QUEST_TYPE_WIN_PLAYER_BATTLE = "winPlayerBattle";
     public static final String QUEST_TYPE_WIN_NPC_BATTLE = "winNPCBattle";
+    public static final String QUEST_TYPE_FISH = "fish";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 
