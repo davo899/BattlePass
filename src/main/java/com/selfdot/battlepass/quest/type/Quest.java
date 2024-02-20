@@ -1,8 +1,9 @@
-package com.selfdot.battlepass.quest;
+package com.selfdot.battlepass.quest.type;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.DataKeys;
+import com.selfdot.battlepass.quest.ActiveQuest;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
@@ -64,6 +65,9 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_CATCH_REGION -> new CatchRegionQuest(jsonObject);
             case DataKeys.QUEST_TYPE_LEVEL_UP_POKEMON -> new LevelUpPokemonQuest(jsonObject);
             case DataKeys.QUEST_TYPE_EVOLVE_POKEMON -> new EvolvePokemonQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_WIN_WILD_BATTLE -> new WinWildBattleQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_WIN_PLAYER_BATTLE -> new WinPlayerBattleQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_WIN_NPC_BATTLE -> new WinNPCBattleQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }

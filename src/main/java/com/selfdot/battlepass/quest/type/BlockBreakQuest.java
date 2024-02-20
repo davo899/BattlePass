@@ -1,4 +1,4 @@
-package com.selfdot.battlepass.quest;
+package com.selfdot.battlepass.quest.type;
 
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.DataKeys;

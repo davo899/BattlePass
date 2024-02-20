@@ -1,4 +1,4 @@
-package com.selfdot.battlepass.quest;
+package com.selfdot.battlepass.quest.type;
 
 import com.cobblemon.mod.common.CobblemonItems;
 import com.cobblemon.mod.common.api.Priority;

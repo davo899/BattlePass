@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.selfdot.battlepass.BattlePassMod;
 import com.selfdot.battlepass.DataKeys;
+import com.selfdot.battlepass.quest.type.Quest;
 import com.selfdot.battlepass.util.ScreenUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -49,6 +50,7 @@ public class ActiveQuest {
     }
 
     public void increment(PlayerEntity player) {
+        if (player == null) return;
         UUID playerID = player.getUuid();
         if (completed.contains(playerID)) return;
         if (!progress.containsKey(playerID)) progress.put(playerID, 0);

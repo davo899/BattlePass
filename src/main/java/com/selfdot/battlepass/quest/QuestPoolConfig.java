@@ -2,6 +2,7 @@ package com.selfdot.battlepass.quest;
 
 import com.google.gson.JsonElement;
 import com.selfdot.battlepass.DataKeys;
+import com.selfdot.battlepass.quest.type.Quest;
 import com.selfdot.battlepass.util.DisableableMod;
 import com.selfdot.battlepass.util.ReadOnlyJsonFile;
 

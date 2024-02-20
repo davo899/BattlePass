@@ -1,5 +1,7 @@
 package com.selfdot.battlepass;
 
+import com.cobblemon.mod.common.api.Priority;
+import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.mojang.brigadier.CommandDispatcher;
 import com.selfdot.battlepass.command.BattlePassCommandTree;
 import com.selfdot.battlepass.quest.DailyQuestTracker;
@@ -19,6 +21,7 @@ import net.minecraft.server.command.ServerCommandSource;
 public class BattlePassMod extends DisableableMod {
 
     private static BattlePassMod INSTANCE;
+    private static MinecraftServer SERVER;
 
     private final RewardsConfig rewardsConfig = new RewardsConfig(this);
     private final TiersConfig tiersConfig = new TiersConfig(this);
@@ -41,6 +44,10 @@ public class BattlePassMod extends DisableableMod {
 
     public static BattlePassMod getInstance() {
         return INSTANCE;
+    }
+
+    public static MinecraftServer getServer() {
+        return SERVER;
     }
 
     public PointsTracker getPointsTracker() {
@@ -86,6 +93,7 @@ public class BattlePassMod extends DisableableMod {
     }
 
     private void onServerStarting(MinecraftServer server) {
+        SERVER = server;
         loadData();
     }
 
