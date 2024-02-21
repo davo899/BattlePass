@@ -78,6 +78,7 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_SMELT_ANY_ITEM -> new SmeltAnyItemQuest(jsonObject);
             case DataKeys.QUEST_TYPE_SMELT_SPECIFIC_ITEM -> new SmeltSpecificItemQuest(jsonObject);
             case DataKeys.QUEST_TYPE_CRAFT_SPECIFIC_ITEM -> new CraftSpecificItemQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_CHAT -> new ChatQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }

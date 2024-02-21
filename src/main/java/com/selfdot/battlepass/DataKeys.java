@@ -33,6 +33,7 @@ public class DataKeys {
     public static final String QUEST_TYPE_SMELT_ANY_ITEM = "smeltAnyItem";
     public static final String QUEST_TYPE_SMELT_SPECIFIC_ITEM = "smeltSpecificItem";
     public static final String QUEST_TYPE_CRAFT_SPECIFIC_ITEM = "craftSpecificItem";
+    public static final String QUEST_TYPE_CHAT = "chat";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 
@@ -44,6 +45,8 @@ public class DataKeys {
 
     public static final String SMELT_ITEM_OUTPUT_ITEM = "outputItem";
     public static final String CRAFT_ITEM_OUTPUT_ITEM = "outputItem";
+
+    public static final String CHAT_MESSAGE = "message";
 
     public static final String PLAYER_TOKEN = "%player%";
 
