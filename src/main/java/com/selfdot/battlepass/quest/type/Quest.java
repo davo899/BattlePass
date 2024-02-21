@@ -77,6 +77,7 @@ public abstract class Quest {
             case DataKeys.QUEST_TYPE_HARVEST_SPECIFIC_BERRIES -> new HarvestSpecificBerriesQuest(jsonObject);
             case DataKeys.QUEST_TYPE_SMELT_ANY_ITEM -> new SmeltAnyItemQuest(jsonObject);
             case DataKeys.QUEST_TYPE_SMELT_SPECIFIC_ITEM -> new SmeltSpecificItemQuest(jsonObject);
+            case DataKeys.QUEST_TYPE_CRAFT_SPECIFIC_ITEM -> new CraftSpecificItemQuest(jsonObject);
             default -> throw new IllegalStateException("Invalid quest type: " + questType);
         };
     }
