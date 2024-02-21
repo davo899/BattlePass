@@ -20,7 +20,7 @@ public abstract class FurnaceMixin {
     @Inject(method = "onCrafted(Lnet/minecraft/item/ItemStack;)V", at = @At("HEAD"))
     private void onCraftedInject(ItemStack itemStack, CallbackInfo callbackInfo) {
         if (!itemStack.isEmpty() && player instanceof ServerPlayerEntity) {
-            SmeltedItemsCallback.EVENT.invoker().interact(player, itemStack.getCount());
+            SmeltedItemsCallback.EVENT.invoker().interact(player, itemStack);
         }
     }
 

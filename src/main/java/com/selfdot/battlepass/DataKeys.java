@@ -30,7 +30,8 @@ public class DataKeys {
     public static final String QUEST_TYPE_FISH = "fish";
     public static final String QUEST_TYPE_HARVEST_ANY_BERRIES = "harvestAnyBerries";
     public static final String QUEST_TYPE_HARVEST_SPECIFIC_BERRIES = "harvestSpecificBerries";
-    public static final String QUEST_TYPE_SMELT_ITEMS = "smeltItems";
+    public static final String QUEST_TYPE_SMELT_ANY_ITEM = "smeltAnyItem";
+    public static final String QUEST_TYPE_SMELT_SPECIFIC_ITEM = "smeltSpecificItem";
 
     public static final String BREAK_BLOCK_BLOCK = "block";
 
@@ -39,6 +40,8 @@ public class DataKeys {
     public static final String CATCH_POKEMON_REGION = "region";
 
     public static final String HARVEST_BERRY_BERRY = "berry";
+
+    public static final String SMELT_ITEM_OUTPUT_ITEM = "outputItem";
 
     public static final String PLAYER_TOKEN = "%player%";
 

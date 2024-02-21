@@ -8,16 +8,16 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
-public class SmeltItemsQuest extends Quest {
+public class SmeltAnyItemQuest extends Quest {
 
-    public SmeltItemsQuest(JsonObject jsonObject) {
-        super(jsonObject, DataKeys.QUEST_TYPE_SMELT_ITEMS);
+    public SmeltAnyItemQuest(JsonObject jsonObject) {
+        super(jsonObject, DataKeys.QUEST_TYPE_SMELT_ANY_ITEM);
     }
 
     @Override
     public void registerListener() {
-        SmeltedItemsCallback.EVENT.register((player, count) -> {
-            incrementActiveQuests(player, count);
+        SmeltedItemsCallback.EVENT.register((player, outputItem) -> {
+            incrementActiveQuests(player, outputItem.getCount());
             return ActionResult.PASS;
         });
     }
