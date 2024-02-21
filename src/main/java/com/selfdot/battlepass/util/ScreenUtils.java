@@ -22,6 +22,7 @@ public class ScreenUtils {
         NbtList nbtLore = new NbtList();
 
         for (Text text : lore) {
+            if (text == null) continue;
             Text line = Texts.join(text.getWithStyle(Style.EMPTY.withItalic(false)), Text.of(""));
             nbtLore.add(NbtString.of(Text.Serializer.toJson(line)));
         }

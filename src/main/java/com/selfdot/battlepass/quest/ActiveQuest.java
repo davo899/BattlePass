@@ -68,10 +68,10 @@ public class ActiveQuest {
     public ItemStack getProgressItem(UUID playerID) {
         ItemStack itemStack = quest.getIconItem();
 
-        Text progressText;
+        Text progressText = null;
         if (completed.contains(playerID)) {
             progressText = Text.literal(Formatting.GREEN + "Completed!");
-        } else {
+        } else if (quest.getRequired() != 1) {
             int playerProgress = progress.getOrDefault(playerID, 0);
             progressText = Text.literal(Formatting.WHITE + String.valueOf(playerProgress) + "/" + quest.getRequired());
         }
